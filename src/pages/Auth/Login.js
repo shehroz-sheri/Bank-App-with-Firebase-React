@@ -25,6 +25,11 @@ const Login = () => {
         console.error(errorInfo);
         message.error('Error! Something went wrong.')
     };
+
+    const guestLogin = async () => {
+        await firebase.loginUser('shehrozsheri36347@gmail.com', '123456');
+    }
+
     return (
         <>
             <AutoModal />
@@ -118,6 +123,7 @@ const Login = () => {
                                             Submit
                                         </Button>
                                     </Form.Item>
+                                    <p className='text-center text-decoration-underline text-primary' style={{ cursor: 'pointer' }} onClick={guestLogin}>Click here to login as a Guest</p>
                                     <p className='text-center'>Don't have an Account? <Link to={'/auth/register'}>Register Now</Link> </p>
                                 </Form>
 
@@ -131,7 +137,7 @@ const Login = () => {
                     </MDBCardBody>
                 </MDBCard>
 
-            </MDBContainer>
+            </MDBContainer >
         </>
     );
 }

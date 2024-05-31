@@ -54,7 +54,6 @@ const Register = () => {
     );
 
     const onFinish = async (values) => {
-        console.log(values.datePicker.toString())
         try {
             const userInfo = {
                 fullName: values.firstName + ' ' + values.lastName,

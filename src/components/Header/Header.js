@@ -5,10 +5,24 @@ import { useFirebase } from '../../Context/AuthContext'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../Config/Firebase'
 import { message } from 'antd'
+import { Button, Modal } from 'antd';
+import { Tooltip } from 'antd';
+
 
 const Header = () => {
     const firebase = useFirebase()
     const user = firebase.isLoggedIn
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <header className='position-sticky top-0 z-1'>
@@ -21,6 +35,20 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarText">
                         {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul> */}
                         <span className="navbar-nav ms-auto me-lg-5">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item mx-lg-2">
+                                    <Tooltip className='nav-link' title="Click here to view Cloud Architecture of this Website">
+                                        <button className='btn btn-sm' onClick={showModal}>
+                                            Cloud Architecture
+                                        </button>
+                                    </Tooltip>
+                                    <Modal title="Cloud Architecture" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                        <img src={require("../../assets/images/cloud-architecture.png")} className='img-fluid' alt="Cloud Architecture" />
+                                    </Modal>
+                                </li>
+                            </ul>
+
+
                             {user
                                 ? <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                     {firebase.user.email !== 'abc@example.com'
@@ -65,4 +93,6 @@ const Header = () => {
     )
 }
 
+
 export default Header
+
